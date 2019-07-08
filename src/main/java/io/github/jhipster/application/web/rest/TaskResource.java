@@ -93,6 +93,7 @@ public class TaskResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of tasks in body.
      */
     @GetMapping("/tasks")
+//    @GetMapping("/")
     public ResponseEntity<List<Task>> getAllTasks(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
         log.debug("REST request to get a page of Tasks");
         Page<Task> page = taskRepository.findAll(pageable);
