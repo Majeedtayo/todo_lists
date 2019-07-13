@@ -9,91 +9,14 @@
         <div [ngSwitch]="isAuthenticated()">
             <div class="alert alert-success" *ngSwitchCase="true">
                 <span id="home-logged-message" *ngIf="account"
-                   > You are logged in as "{{account.login}}". <br> Select "Task" under the Entities dropdown to view tasks
+                > You are logged in as "{{account.login}}". <br> Select "Task" under the Entities dropdown to view tasks
                 </span>
-                <h2 id="page-heading">
-                    <span>Tasks</span>
-                    <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-task" [routerLink]="['/task/new']">
-                        <fa-icon [icon]="'plus'"></fa-icon>
-                        <span >
-            Create new Task
-            </span>
-                    </button>
-                </h2>
-                <jhi-alert></jhi-alert>
-                <br/>
-                <div class="alert alert-warning" *ngIf="tasks?.length === 0">
-                    <span>No tasks found</span>
-                </div>
-                <div class="table-responsive" *ngIf="tasks?.length > 0">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="title"><span>Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="done"><span>Done</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="schedule"><span>Schedule</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="priority"><span>Priority</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="user.login"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let task of tasks ;trackBy: trackId">
-                            <td><a [routerLink]="['/task', task.id, 'view' ]">{{task.id}}</a></td>
-                            <td>{{task.title}}</td>
-                            <td>{{task.description}}</td>
-                            <td>{{task.done}}</td>
-                            <td>{{task.createdDate | date:'medium'}}</td>
-                            <td>{{task.schedule | date:'medium'}}</td>
-                            <td>{{task.priority}}</td>
-                            <td>
-                                {{task.user?.login}}
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button type="submit"
-                                            [routerLink]="['/task', task.id, 'view' ]"
-                                            class="btn btn-info btn-sm">
-                                        <fa-icon [icon]="'eye'"></fa-icon>
-                                        <span class="d-none d-md-inline">View</span>
-                                    </button>
-                                    <button type="submit"
-                                            [routerLink]="['/task', task.id, 'edit']"
-                                            class="btn btn-primary btn-sm">
-                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                                        <span class="d-none d-md-inline">Edit</span>
-                                    </button>
-                                    <button type="submit"
-                                            [routerLink]="['/', 'task', { outlets: { popup: task.id + '/delete'} }]"
-                                            replaceUrl="true"
-                                            queryParamsHandling="merge"
-                                            class="btn btn-danger btn-sm">
-                                        <fa-icon [icon]="'times'"></fa-icon>
-                                        <span class="d-none d-md-inline">Delete</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div [hidden]="tasks?.length === 0">
-                    <div class="row justify-content-center">
-                        <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-                    </div>
-                    <div class="row justify-content-center">
-                        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-                    </div>
-                </div>
             </div>
 
             <div class="alert alert-warning" *ngSwitchCase="false">
                 <span>Click </span>
                 <a class="alert-link" (click)="login()">sign in</a>
-<!--                <span>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>-->
+                <!--                <span>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>-->
             </div>
             <div class="alert alert-warning" *ngSwitchCase="false">
                 <span>You don't have an account yet?</span>&nbsp;

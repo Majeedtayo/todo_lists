@@ -10,12 +10,22 @@ import { JhiAlertService } from 'ng-jhipster';
 import { ITask, Task } from 'app/shared/model/task.model';
 import { TaskService } from './task.service';
 import { IUser, UserService } from 'app/core';
+import {MY_NATIVE_FORMATS} from 'app/app.module';
 
 @Component({
   selector: 'jhi-task-update',
   templateUrl: './task-update.component.html'
 })
 export class TaskUpdateComponent implements OnInit {
+  date: Date = new Date();
+  settings = {
+    bigBanner: true,
+    timePicker: false,
+    format: 'fullDate',
+    defaultOpen: false,
+    closeOnSelect: true
+  };
+
   isSaving: boolean;
 
   users: IUser[];
@@ -60,7 +70,7 @@ export class TaskUpdateComponent implements OnInit {
       description: task.description,
       done: task.done,
       createdDate: task.createdDate != null ? task.createdDate.format(DATE_TIME_FORMAT) : null,
-      schedule: task.schedule != null ? task.schedule.format(DATE_TIME_FORMAT) : null,
+      schedule: task.schedule != null ? task.schedule.format(MY_NATIVE_FORMATS) : null,
       priority: task.priority,
       user: task.user
     });
@@ -89,7 +99,8 @@ export class TaskUpdateComponent implements OnInit {
       done: this.editForm.get(['done']).value,
       createdDate:
         this.editForm.get(['createdDate']).value != null ? moment(this.editForm.get(['createdDate']).value, DATE_TIME_FORMAT) : undefined,
-      schedule: this.editForm.get(['schedule']).value != null ? moment(this.editForm.get(['schedule']).value, DATE_TIME_FORMAT) : undefined,
+      // schedule: this.editForm.get(['schedule']).value != null ? moment(this.editForm.get(['schedule']).value, DATE_TIME_FORMAT) : undefined,
+      schedule: this.editForm.get(['schedule']).value != null ? moment(this.editForm.get(['schedule']).value, MY_NATIVE_FORMATS) : undefined,
       priority: this.editForm.get(['priority']).value,
       user: this.editForm.get(['user']).value
     };

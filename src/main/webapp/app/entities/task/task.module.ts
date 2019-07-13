@@ -11,13 +11,19 @@ import {
   taskRoute,
   taskPopupRoute
 } from './';
+import {JhipsterSampleApplicationHomeModule} from 'app/home';
+import {OwlDateTimeModule} from 'ng-pick-datetime';
+import {AngularDateTimePickerModule} from 'angular2-datetimepicker';
 
 const ENTITY_STATES = [...taskRoute, ...taskPopupRoute];
 
 @NgModule({
-  imports: [JhipsterSampleApplicationSharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [JhipsterSampleApplicationSharedModule, RouterModule.forChild(ENTITY_STATES), OwlDateTimeModule, AngularDateTimePickerModule],
   declarations: [TaskComponent, TaskDetailComponent, TaskUpdateComponent, TaskDeleteDialogComponent, TaskDeletePopupComponent],
   entryComponents: [TaskComponent, TaskUpdateComponent, TaskDeleteDialogComponent, TaskDeletePopupComponent],
+  exports: [
+    TaskComponent
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class JhipsterSampleApplicationTaskModule {}
