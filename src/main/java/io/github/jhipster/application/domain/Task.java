@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -40,7 +39,7 @@ public class Task implements Serializable {
 
     @NotNull
     @Column(name = "created_date", nullable = false)
-    private Instant createdDate;
+    private ZonedDateTime createdDate;
 
     @Column(name = "schedule")
     private ZonedDateTime schedule;
@@ -105,16 +104,16 @@ public class Task implements Serializable {
         this.done = done;
     }
 
-    public Instant getCreatedDate() {
+    public ZonedDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public Task createdDate(Instant createdDate) {
+    public Task createdDate(ZonedDateTime createdDate) {
         this.createdDate = createdDate;
         return this;
     }
 
-    public void setCreatedDate(Instant createdDate) {
+    public void setCreatedDate(ZonedDateTime createdDate) {
         this.createdDate = createdDate;
     }
 

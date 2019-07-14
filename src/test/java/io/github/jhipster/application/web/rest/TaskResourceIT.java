@@ -23,7 +23,6 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.ZoneOffset;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static io.github.jhipster.application.web.rest.TestUtil.sameInstant;
@@ -49,8 +48,8 @@ public class TaskResourceIT {
     private static final Boolean DEFAULT_DONE = false;
     private static final Boolean UPDATED_DONE = true;
 
-    private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final ZonedDateTime DEFAULT_CREATED_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_CREATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     private static final ZonedDateTime DEFAULT_SCHEDULE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_SCHEDULE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
@@ -223,7 +222,7 @@ public class TaskResourceIT {
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].done").value(hasItem(DEFAULT_DONE.booleanValue())))
-            .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
+            .andExpect(jsonPath("$.[*].createdDate").value(hasItem(sameInstant(DEFAULT_CREATED_DATE))))
             .andExpect(jsonPath("$.[*].schedule").value(hasItem(sameInstant(DEFAULT_SCHEDULE))))
             .andExpect(jsonPath("$.[*].priority").value(hasItem(DEFAULT_PRIORITY.toString())));
     }
@@ -242,7 +241,7 @@ public class TaskResourceIT {
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.done").value(DEFAULT_DONE.booleanValue()))
-            .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
+            .andExpect(jsonPath("$.createdDate").value(sameInstant(DEFAULT_CREATED_DATE)))
             .andExpect(jsonPath("$.schedule").value(sameInstant(DEFAULT_SCHEDULE)))
             .andExpect(jsonPath("$.priority").value(DEFAULT_PRIORITY.toString()));
     }

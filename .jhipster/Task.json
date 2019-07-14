@@ -34,7 +34,7 @@
         },
         {
             "fieldName": "createdDate",
-            "fieldType": "Instant",
+            "fieldType": "ZonedDateTime",
             "fieldValidateRules": [
                 "required"
             ]

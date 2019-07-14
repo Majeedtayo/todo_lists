@@ -11,6 +11,7 @@ import { ITask, Task } from 'app/shared/model/task.model';
 import { TaskService } from './task.service';
 import { IUser, UserService } from 'app/core';
 import {MY_NATIVE_FORMATS} from 'app/app.module';
+import _date = moment.unitOfTime._date;
 
 @Component({
   selector: 'jhi-task-update',
@@ -29,6 +30,8 @@ export class TaskUpdateComponent implements OnInit {
   isSaving: boolean;
 
   users: IUser[];
+
+  // cloneUsers = this.users;
 
   editForm = this.fb.group({
     id: [],
@@ -50,6 +53,7 @@ export class TaskUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // this.setUsers();
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ task }) => {
       this.updateForm(task);
@@ -62,6 +66,10 @@ export class TaskUpdateComponent implements OnInit {
       )
       .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
+
+  /*setUsers() {
+    this.cloneUsers = [...this.users];
+  }*/
 
   updateForm(task: ITask) {
     this.editForm.patchValue({
@@ -124,6 +132,6 @@ export class TaskUpdateComponent implements OnInit {
   }
 
   trackUserById(index: number, item: IUser) {
-    return item.id;
+      return item.id;
   }
 }
