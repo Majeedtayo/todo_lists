@@ -65,7 +65,7 @@ export class TaskUpdateComponent implements OnInit {
         filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
         map((response: HttpResponse<IUser[]>) => response.body)
       )
-      .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: IUser[]) => (this.setUsers(res)), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   /*setUsers() {
@@ -134,5 +134,17 @@ export class TaskUpdateComponent implements OnInit {
 
   trackUserById(index: number, item: IUser) {
       return item.id;
+  }
+
+  setUsers(userList: IUser[]) {
+    this.users = [];
+    console.log(userList);
+    if (userList && userList.length > 0) {
+      userList.forEach(user => {
+        if (user.login !== 'system') {
+          this.users.push(user);
+        }
+      });
+    }
   }
 }
