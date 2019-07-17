@@ -53,6 +53,7 @@ export const MY_NATIVE_FORMATS = 'YYYY-MM-DDTHH:mm';
     JhipsterSampleApplicationAccountModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     JhipsterSampleApplicationEntityModule,
+    BrowserAnimationsModule,
     JhipsterSampleApplicationAppRoutingModule
   ],
   declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],

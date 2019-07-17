@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, RouterOutlet} from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -11,10 +11,12 @@ import { ITask, Task } from 'app/shared/model/task.model';
 import { TaskService } from './task.service';
 import { IUser, UserService } from 'app/core';
 import {MY_NATIVE_FORMATS} from 'app/app.module';
+import {slideInAnimation} from 'app/animations';
 
 @Component({
   selector: 'jhi-task-update',
-  templateUrl: './task-update.component.html'
+  templateUrl: './task-update.component.html',
+  animations: [slideInAnimation]
 })
 export class TaskUpdateComponent implements OnInit {
 
@@ -146,5 +148,9 @@ export class TaskUpdateComponent implements OnInit {
         }
       });
     }
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }

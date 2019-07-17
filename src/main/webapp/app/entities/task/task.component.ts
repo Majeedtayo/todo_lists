@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
@@ -10,10 +10,12 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { TaskService } from './task.service';
+import {slideInAnimation} from 'app/animations';
 
 @Component({
   selector: 'jhi-task',
-  templateUrl: './task.component.html'
+  templateUrl: './task.component.html',
+  animations: [slideInAnimation]
 })
 export class TaskComponent implements OnInit, OnDestroy {
   currentAccount: any;
@@ -127,5 +129,9 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }

@@ -1,4 +1,7 @@
-<div>
+<div [@routeAnimations]="prepareRoute(outlet)" >
+    <router-outlet #outlet="outlet"></router-outlet>
+</div>
+<div class="col-listpage">
     <h2 id="page-heading">
         <span>Tasks</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-task" [routerLink]="['/task/new']">
